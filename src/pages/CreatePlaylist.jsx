@@ -1,11 +1,17 @@
 import { useState } from "react";
-import { Box, Button, Container, Flex, FormControl, FormLabel, Heading, Input, Textarea, VStack } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, FormControl, FormLabel, Heading, Input, Textarea, VStack, IconButton, Text, HStack } from "@chakra-ui/react";
+import { FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
 
 const CreatePlaylist = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [songs, setSongs] = useState([]);
   const [newSong, setNewSong] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState({
+    title: "Sample Song",
+    artist: "Sample Artist",
+  });
 
   const handleAddSong = () => {
     if (newSong.trim() !== "") {
@@ -17,6 +23,20 @@ const CreatePlaylist = () => {
   const handleSavePlaylist = () => {
     // Logic to save the playlist
     console.log("Playlist saved:", { name, description, songs });
+  };
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    // Logic to go to the next song
+    console.log("Next song");
+  };
+
+  const handlePrevious = () => {
+    // Logic to go to the previous song
+    console.log("Previous song");
   };
 
   return (
@@ -64,6 +84,33 @@ const CreatePlaylist = () => {
         </Box>
         <Button colorScheme="blue" onClick={handleSavePlaylist}>Save Playlist</Button>
       </VStack>
+
+      {/* Playback Controls */}
+      <Box bg="gray.800" color="white" p={4} mt={8}>
+        <Flex justify="space-between" align="center">
+          <Box>
+            <Text fontSize="lg">{currentSong.title}</Text>
+            <Text fontSize="sm">{currentSong.artist}</Text>
+          </Box>
+          <HStack spacing={4}>
+            <IconButton
+              icon={<FaStepBackward />}
+              onClick={handlePrevious}
+              aria-label="Previous"
+            />
+            <IconButton
+              icon={isPlaying ? <FaPause /> : <FaPlay />}
+              onClick={handlePlayPause}
+              aria-label="Play/Pause"
+            />
+            <IconButton
+              icon={<FaStepForward />}
+              onClick={handleNext}
+              aria-label="Next"
+            />
+          </HStack>
+        </Flex>
+      </Box>
     </Container>
   );
 };
