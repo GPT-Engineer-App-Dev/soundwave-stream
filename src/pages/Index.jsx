@@ -1,8 +1,29 @@
-import { Box, Container, Flex, Heading, HStack, VStack, Text, Link, Image, Spacer, Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, HStack, VStack, Text, Link, Image, Spacer, Button, IconButton } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaSearch, FaMusic, FaUser, FaPlus } from "react-icons/fa";
+import { FaHome, FaSearch, FaMusic, FaUser, FaPlus, FaPlay, FaPause, FaStepForward, FaStepBackward } from "react-icons/fa";
+import { useState } from "react";
 
 const Index = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState({
+    title: "Sample Song",
+    artist: "Sample Artist",
+  });
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    // Logic to go to the next song
+    console.log("Next song");
+  };
+
+  const handlePrevious = () => {
+    // Logic to go to the previous song
+    console.log("Previous song");
+  };
+
   return (
     <Container maxW="container.xl" p={0}>
       {/* Navigation Bar */}
@@ -60,12 +81,30 @@ const Index = () => {
         </Flex>
       </Box>
 
-      {/* Footer */}
+      {/* Playback Controls */}
       <Box as="footer" bg="gray.800" color="white" p={4} mt={8}>
-        <Flex justify="space-between" wrap="wrap">
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/terms">Terms of Service</Link>
+        <Flex justify="space-between" align="center">
+          <Box>
+            <Text fontSize="lg">{currentSong.title}</Text>
+            <Text fontSize="sm">{currentSong.artist}</Text>
+          </Box>
+          <HStack spacing={4}>
+            <IconButton
+              icon={<FaStepBackward />}
+              onClick={handlePrevious}
+              aria-label="Previous"
+            />
+            <IconButton
+              icon={isPlaying ? <FaPause /> : <FaPlay />}
+              onClick={handlePlayPause}
+              aria-label="Play/Pause"
+            />
+            <IconButton
+              icon={<FaStepForward />}
+              onClick={handleNext}
+              aria-label="Next"
+            />
+          </HStack>
         </Flex>
       </Box>
     </Container>
