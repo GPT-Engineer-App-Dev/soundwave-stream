@@ -1,6 +1,6 @@
-import { Box, Container, Flex, Heading, HStack, VStack, Text, Link, Image, Spacer } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, HStack, VStack, Text, Link, Image, Spacer, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
-import { FaHome, FaSearch, FaMusic, FaUser } from "react-icons/fa";
+import { FaHome, FaSearch, FaMusic, FaUser, FaPlus } from "react-icons/fa";
 
 const Index = () => {
   return (
@@ -33,6 +33,12 @@ const Index = () => {
             </HStack>
           </NavLink>
         </HStack>
+        <Spacer />
+        <NavLink to="/create-playlist">
+          <Button leftIcon={<FaPlus />} colorScheme="teal">
+            Create Playlist
+          </Button>
+        </NavLink>
       </Flex>
 
       {/* Main Section */}
